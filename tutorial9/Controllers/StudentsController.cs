@@ -35,7 +35,7 @@ namespace tutorial9.Controllers
         [HttpPost("promote/student")]
         public IActionResult PromoteStudent(PromoteStudent promote)
         {
-            return dbService.PromoteStudent(promote);
+            return dbService.PromoteStudents(promote);
         }
     }
 }

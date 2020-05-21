@@ -11,6 +11,6 @@ namespace tutorial9.Services
     {
         public IActionResult GetStudents();
         public IActionResult AddStudent(AddStudent student);
-        public IActionResult PromoteStudent(PromoteStudent promote);
+        public IActionResult PromoteStudents(PromoteStudent promote);
     }
 }

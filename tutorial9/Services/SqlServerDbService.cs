@@ -78,9 +78,23 @@ namespace tutorial9.Services
             return Ok("Student was added successfully");
         }
 
-        public IActionResult PromoteStudent(PromoteStudent promote)
+        public IActionResult PromoteStudents(PromoteStudent promote)
         {
-            return Ok();
+            if(!context.Studies.Any(s => s.Name == promote.StudiesName))
+            {
+                return BadRequest("Such study name doesn't exist");
+            }
+
+            int idStudy = context.Studies.Where(s => s.Name == promote.StudiesName).Select(s => s.IdStudy).FirstOrDefault();
+
+            if(context.Enrollment.Any(e => e.Semester == promote.Semester && e.IdStudy == idStudy))
+            {
+                context.Enrollment.Where(e => e.Semester == promote.Semester && e.IdStudy == idStudy).ToList().ForEach(e => e.Semester = e.Semester + 1); 
+            }
+
+            context.SaveChanges();
+        
+            return Ok("Student was promoted successfully");
         }
     }
 }

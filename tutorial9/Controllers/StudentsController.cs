@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using tutorial9.Models;
 using tutorial9.Services;
 
@@ -36,6 +31,12 @@ namespace tutorial9.Controllers
         public IActionResult PromoteStudent(PromoteStudent promote)
         {
             return dbService.PromoteStudents(promote);
+        }
+
+        [HttpDelete("delete/student")]
+        public IActionResult DeleteStudent(DeleteStudent delete)
+        {
+            return dbService.DeleteStudent(delete);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using tutorial9.Models;
 
 namespace tutorial9.Services
@@ -30,7 +28,7 @@ namespace tutorial9.Services
             idStudy = context.Studies.Where(s => s.Name == student.StudiesName).Select(s => s.IdStudy).FirstOrDefault();
             if (idStudy == 0)
             {
-                return BadRequest("Such study name doesn't exist!");
+                return BadRequest("Such study name doesn't exists!");
             }
 
             idEnrollment = context.Enrollment.Where(s => s.Semester == student.Semester && s.IdStudy == idStudy && s.StartDate == DateTime.Today).Select(s => s.IdEnrollment).FirstOrDefault();
@@ -61,7 +59,7 @@ namespace tutorial9.Services
 
             if (context.Student.Any(s => s.IndexNumber == student.IndexNumber))
             {
-                return BadRequest("Such index number already exist!");
+                return BadRequest("Such index number already exists!");
             }
             else
             {
@@ -82,7 +80,7 @@ namespace tutorial9.Services
         {
             if(!context.Studies.Any(s => s.Name == promote.StudiesName))
             {
-                return BadRequest("Such study name doesn't exist");
+                return BadRequest("Such study name doesn't exists");
             }
 
             int idStudy = context.Studies.Where(s => s.Name == promote.StudiesName).Select(s => s.IdStudy).FirstOrDefault();
@@ -95,6 +93,22 @@ namespace tutorial9.Services
             context.SaveChanges();
         
             return Ok("Student was promoted successfully");
+        }
+
+        public IActionResult DeleteStudent(DeleteStudent delete)
+        {
+            if(context.Student.Any(s => s.IndexNumber == delete.IndexNumber))
+            {
+                context.Student.Remove(context.Student.Where(s => s.IndexNumber == delete.IndexNumber).FirstOrDefault());
+            }
+            else
+            {
+                return BadRequest("Student with such index number doesn't exists");
+            }
+
+            context.SaveChanges();
+
+            return Ok("Student was deleted successfully");
         }
     }
 }

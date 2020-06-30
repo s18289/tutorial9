@@ -27,7 +27,7 @@ namespace tutorial9.Controllers
             return dbService.AddStudent(student);
         }
 
-        [HttpPost("promote/student")]
+        [HttpPut("promote/student")]
         public IActionResult PromoteStudent(PromoteStudent promote)
         {
             return dbService.PromoteStudents(promote);
